@@ -2,7 +2,22 @@
 //  RegisterFactory.swift
 //  FreeFitness
 //
-//  Created by Jorge Luis Rivera Ladino - Ceiba Software on 20/04/22.
+//  Created by W.D. on 20/04/22.
 //
 
-import Foundation
+import UIKit
+
+enum RegisterFactory {
+    
+    static func getRegisterViewController() -> RegisterViewController {
+        // viewController
+        let viewController = RegisterViewController()
+        return viewController
+    }
+    
+    static func showRegisterViewController(from originViewController: UIViewController) {
+        let viewController = getRegisterViewController()
+        originViewController.navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+}

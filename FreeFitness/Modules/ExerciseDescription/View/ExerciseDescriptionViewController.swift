@@ -2,28 +2,55 @@
 //  ExerciseDescriptionViewController.swift
 //  FreeFitness
 //
-//  Created by Jorge Luis Rivera Ladino - Ceiba Software on 27/04/22.
+//  Created by W.D. on 27/04/22.
 //
 
 import UIKit
 
 class ExerciseDescriptionViewController: UIViewController {
+    
+    // MARK: - Private UI properites
+
+    lazy var exerciseDescriptionView: ExerciseDescriptionView = {
+        let exerciseDescriptionView = ExerciseDescriptionView()
+        return exerciseDescriptionView
+    }()
+    
+    // MARK: - Internal Properties
+    
+    var exercise: Exercise?
+    
+    // MARK: - Initializers
+    
+    init(exercise: Exercise) {
+        self.exercise = exercise
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Lifecycle ViewController Methods
+    
+    override func loadView() {
+        super.loadView()
+        view = exerciseDescriptionView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupExercise()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: - Private Methods
+    
+    private func setupExercise() {
+        exerciseDescriptionView.muscleImageContent?.downloaded(from: exercise?.url, placeHolder: .none)
+        exerciseDescriptionView.muscleNameLabelText = exercise?.muscleName ?? ""
+        exerciseDescriptionView.typeWeightLabelText = exercise?.typeWeight ?? ""
+        exerciseDescriptionView.setsOnWeekLabelText = String(exercise?.setsOnWeek ?? 0)
+        exerciseDescriptionView.repsLabelText = String(exercise?.reps ?? 0)
     }
-    */
 
 }

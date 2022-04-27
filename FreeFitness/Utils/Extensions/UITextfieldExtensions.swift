@@ -10,7 +10,6 @@ import UIKit
 extension UITextField {
     
     func setLeftIcon(_ image: UIImage, _ color: UIColor) {
-        
         let iconView = UIImageView(frame: CGRect(x: 10, y: 5, width: 20, height: 20))
         iconView.image = image.withRenderingMode(.alwaysTemplate)
         iconView.tintColor = color

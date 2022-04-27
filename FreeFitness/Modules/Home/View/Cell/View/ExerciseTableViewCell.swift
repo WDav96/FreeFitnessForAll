@@ -13,6 +13,8 @@ class ExerciseTableViewCell: UITableViewCell {
     
     // MARK: - Private UI Properties
     
+    var udImage: UIImageView = UIImageView()
+    
     private var containerStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 20
@@ -20,7 +22,7 @@ class ExerciseTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    private var exerciseImage: UIImageView = {
+    private var muscleImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -30,6 +32,19 @@ class ExerciseTableViewCell: UITableViewCell {
         let label = UILabel()
         return label
     }()
+    
+    // MARK: - Internal properties
+    
+    var exercise: Exercise? {
+        didSet {
+            setupExercise()
+        }
+    }
+    
+    // MARK: - Private properties
+    
+    private var imageService = ImageService()
+    private var representedIdentifier: String = ""
     
     // MARK: - Initializers
     
@@ -47,7 +62,7 @@ class ExerciseTableViewCell: UITableViewCell {
     private func addSubViews() {
         contentView.addSubview(containerStackView)
         
-        containerStackView.addArrangedSubview(exerciseImage)
+        containerStackView.addArrangedSubview(muscleImage)
         containerStackView.addArrangedSubview(titleLabel)
 
         addConstraints()
@@ -61,8 +76,13 @@ class ExerciseTableViewCell: UITableViewCell {
         containerStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15).isActive = true
         
         // exerciseImage
-        exerciseImage.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        exerciseImage.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        muscleImage.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        muscleImage.widthAnchor.constraint(equalToConstant: 80).isActive = true
+    }
+    
+    private func setupExercise() {
+        titleLabel.text = exercise?.muscleName
+        muscleImage.downloaded(from: exercise?.url, placeHolder: .none)
     }
 
 }
